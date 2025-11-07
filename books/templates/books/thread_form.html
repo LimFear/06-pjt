@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ title }}</h1>
+<p><a href="{% url 'books:detail' book.pk %}">← 도서 상세로</a></p>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary">{{ btn }}</button>
+</form>
+{% endblock %}

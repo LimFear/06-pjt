@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    {% block content %} {% endblock content %}
-  </body>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}ThRead{% endblock %}</title>
+
+  <style>
+    :root { --nav-h: 56px; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo","Malgun Gothic", sans-serif; }
+
+    /* 공통 네비게이션 (모든 페이지에서 고정) */
+    .th-navbar{
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
+      background: #2e7d32; color: #fff; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px;
+    }
+    .th-navbar .brand{ font-weight: 700; }
+    .th-navbar a{ color: #fff; text-decoration: none; margin-left: 16px; }
+
+    main.main{ padding: calc(var(--nav-h) + 20px) 16px 24px; max-width: 1200px; margin: 0 auto; color:#111; }
+
+    /* 심플 공통 UI */
+    .card{ border: 1px solid #e5e5e5; border-radius: 8px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+    .card-body{ padding: 16px; }
+    .btn{ display: inline-block; padding: 6px 12px; font-size: 14px; border-radius: 4px; text-decoration: none; cursor: pointer; }
+    .btn-primary{ border: 1px solid #0d6efd; color:#fff; background:#0d6efd; }
+    .btn-outline{ border: 1px solid #0d6efd; color:#0d6efd; background: transparent; }
+    .btn-danger{ border: 1px solid #dc3545; color:#fff; background:#dc3545; }
+  </style>
+
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav class="th-navbar" role="navigation" aria-label="main">
+    <div class="brand">ThRead</div>
+    <div class="nav-links">
+      <a href="{% url 'books:index' %}">INDEX</a>
+      <a href="{% url 'books:create' %}">CREATE</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block body_end %}{% endblock %}
+</body>
 </html>

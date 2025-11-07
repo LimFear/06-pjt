@@ -1,7 +1,26 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
+<h1>메인 페이지</h1>
 
-<h1>HI!</h1>
+<div class="grid">
+  {% for b in books %}
+    <div class="card">
+      <div class="card-body">
+        <h5 style="margin:0 0 8px; font-size:18px;">{{ b.title }}</h5>
+        <p style="margin:0 0 12px; line-height:1.4; color:#444;">
+          {{ b.description|truncatechars:180 }}
+        </p>
+        <a class="btn btn-outline" href="{% url 'books:detail' b.pk %}">Detail</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>등록된 도서가 없습니다.</p>
+  {% endfor %}
+</div>
+{% endblock %}
 
-{% endblock content %}
+{% block body_end %}
+<style>
+  .grid{ display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+</style>
+{% endblock %}
